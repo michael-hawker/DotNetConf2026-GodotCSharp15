@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://c3l5vroj8joxk" path="res://images/Tilemap/tiles_packed.png" id="2_uu6xs"]
 [ext_resource type="Script" uid="uid://pa8b4l118sh5" path="res://Player.cs" id="3_cm0pq"]
 [ext_resource type="Texture2D" uid="uid://cbmqlx8k0nfdm" path="res://images/Ships/ship_0005.png" id="3_r0du0"]
+[ext_resource type="PackedScene" uid="uid://8h86kelfs4t6" path="res://Bullet.tscn" id="4_fos0i"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_r0du0"]
 texture = ExtResource("2_uu6xs")
@@ -144,9 +145,11 @@ tile_set = SubResource("TileSet_126ht")
 
 [node name="Sprites" type="Node2D" parent="." unique_id=1695298837]
 
-[node name="PlayerBody2D" type="CharacterBody2D" parent="Sprites" unique_id=11456381]
+[node name="PlayerBody2D" type="CharacterBody2D" parent="Sprites" unique_id=11456381 node_paths=PackedStringArray("BulletLayer")]
 position = Vector2(264, 201)
 script = ExtResource("3_cm0pq")
+BulletScene = ExtResource("4_fos0i")
+BulletLayer = NodePath("../../BulletsAndEffects")
 
 [node name="Sprite2D" type="Sprite2D" parent="Sprites/PlayerBody2D" unique_id=718589975]
 texture = ExtResource("3_r0du0")

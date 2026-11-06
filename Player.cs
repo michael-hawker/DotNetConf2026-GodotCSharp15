@@ -6,9 +6,28 @@ public partial class Player : CharacterBody2D
 	public const float Speed = 20.0f;
 	public const float RotationSpeed = 45f;
 
+	[Export]
+	public PackedScene BulletScene { get; set; }
+	
+	[Export]
+	public Node2D BulletLayer { get; set; }
+	
 	public override void _Ready()
 	{
 		Velocity = new(0, -Speed);
+	}
+
+	public override void _Process(double delta)
+	{
+		if (Input.IsActionJustPressed("ui_accept"))
+		{
+			Bullet bullet = BulletScene.Instantiate<Bullet>();
+			bullet.AddCollisionExceptionWith(this); // prevent our own bullet from hitting us!
+			bullet.Rotation = Rotation;
+			bullet.Position = GlobalPosition + new Vector2(0, -16).Rotated(Rotation); // Fire bullet in-front of us
+			bullet.LinearVelocity = Velocity;
+			BulletLayer.AddChild(bullet);
+		}
 	}
 
 	public override void _PhysicsProcess(double delta)

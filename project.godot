@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 window/size/viewport_width=320
 window/size/viewport_height=240
+window/size/mode=2
 window/stretch/mode="viewport"
 window/stretch/aspect="expand"
 window/stretch/scale_mode="integer"
@@ -30,6 +31,8 @@ project/assembly_name="GodotNet11"
 [physics]
 
 3d/physics_engine="Jolt Physics"
+2d/default_gravity=0.0
+2d/default_gravity_vector=Vector2(0, 0)
 
 [rendering]
 
