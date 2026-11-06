@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using GodotNet11.States;
 
 public partial class Player : CharacterBody2D
 {
@@ -11,6 +12,8 @@ public partial class Player : CharacterBody2D
 	
 	[Export]
 	public Node2D BulletLayer { get; set; }
+
+	private StateMachine<PlayerStates> _stateMachine = new(new PlayerBaseState());
 	
 	public override void _Ready()
 	{
@@ -19,7 +22,8 @@ public partial class Player : CharacterBody2D
 
 	public override void _Process(double delta)
 	{
-		if (Input.IsActionJustPressed("ui_accept"))
+		if (Input.IsActionJustPressed("ui_accept") &&
+		    _stateMachine.CurrentState is PlayerBaseState)
 		{
 			Bullet bullet = BulletScene.Instantiate<Bullet>();
 			bullet.AddCollisionExceptionWith(this); // prevent our own bullet from hitting us!
@@ -27,6 +31,17 @@ public partial class Player : CharacterBody2D
 			bullet.Position = GlobalPosition + new Vector2(0, -16).Rotated(Rotation); // Fire bullet in-front of us
 			bullet.LinearVelocity = Velocity;
 			BulletLayer.AddChild(bullet);
+			
+			_stateMachine.GoToState(new PlayerFireState(1.0f));
+		}
+
+		if (_stateMachine.CurrentState is PlayerFireState fireState)
+		{
+			fireState.Cooldown -= (float)delta;
+			if (fireState.Cooldown <= 0)
+			{
+				_stateMachine.GoToState(new PlayerBaseState());
+			}
 		}
 	}
 
