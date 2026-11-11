@@ -5,6 +5,8 @@
 [ext_resource type="Script" uid="uid://pa8b4l118sh5" path="res://Player.cs" id="3_cm0pq"]
 [ext_resource type="Texture2D" uid="uid://cbmqlx8k0nfdm" path="res://images/Ships/ship_0005.png" id="3_r0du0"]
 [ext_resource type="PackedScene" uid="uid://8h86kelfs4t6" path="res://Bullet.tscn" id="4_fos0i"]
+[ext_resource type="Script" uid="uid://cg1uwq7ptee8v" path="res://Seeker.cs" id="6_lgr22"]
+[ext_resource type="Texture2D" uid="uid://v0rybnw87oj1" path="res://images/Ships/ship_0016.png" id="7_trn2v"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_r0du0"]
 texture = ExtResource("2_uu6xs")
@@ -133,8 +135,8 @@ texture = ExtResource("2_uu6xs")
 sources/1 = SubResource("TileSetAtlasSource_r0du0")
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_cm0pq"]
-radius = 8.0
-height = 26.0
+radius = 7.0
+height = 22.0
 
 [node name="Node2D" type="Node2D" unique_id=437879472]
 script = ExtResource("1_glv2v")
@@ -155,6 +157,18 @@ BulletLayer = NodePath("../../BulletsAndEffects")
 texture = ExtResource("3_r0du0")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sprites/PlayerBody2D" unique_id=146668034]
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_cm0pq")
+
+[node name="EnemyBody2D" type="CharacterBody2D" parent="Sprites" unique_id=1342522690]
+position = Vector2(38, 41)
+rotation = 3.1415927
+script = ExtResource("6_lgr22")
+
+[node name="Sprite2D" type="Sprite2D" parent="Sprites/EnemyBody2D" unique_id=271920590]
+texture = ExtResource("7_trn2v")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprites/EnemyBody2D" unique_id=523224312]
 rotation = 1.5707964
 shape = SubResource("CapsuleShape2D_cm0pq")
 

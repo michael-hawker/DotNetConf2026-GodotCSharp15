@@ -4,7 +4,7 @@ using GodotNet11.States;
 
 public partial class Player : CharacterBody2D
 {
-	public const float Speed = 20.0f;
+	public const float Speed = 24.0f;
 	public const float RotationSpeed = 45f;
 
 	[Export]
