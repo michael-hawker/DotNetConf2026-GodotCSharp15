@@ -1,5 +1,7 @@
 # Godot + C#15 Sample
 
+![Screenshot](dogfight.png)
+
 This is a sample project built for .NET Conf 2026 demonstrating [new C#15 features](https://learn.microsoft.com/dotnet/csharp/whats-new/csharp-15#extension-indexers) and how they can be used with Godot.
 
 The project specifically targets .NET 8 and uses [PolySharp](https://github.com/Sergio0694/PolySharp) to demonstrate the new C#15 features as an example. The project can also just directly target .NET 11.
