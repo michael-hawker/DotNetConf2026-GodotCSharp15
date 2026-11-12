@@ -6,7 +6,7 @@ namespace GodotNet11;
 public partial class Seeker : CharacterBody2D
 {
 	private const float Speed = 20.0f;
-	private const float RotationSpeed = 5f;
+	private const float RotationSpeed = Mathf.Pi / 12; // Radians
 
 	private readonly StateMachine<EnemyState> _stateMachine = new(new EnemySeekingState(240f));
 
@@ -32,7 +32,7 @@ public partial class Seeker : CharacterBody2D
 				}
 				break;
 			case EnemyTargetState enemyTargetState:
-				Rotation = (float)Mathf.LerpAngle(Rotation, GlobalPosition.AngleToPoint(enemyTargetState.Target.GlobalPosition) + Mathf.Pi/2,
+				Rotation = (float)Mathf.RotateToward(Rotation, GlobalPosition.AngleToPoint(enemyTargetState.Target.GlobalPosition) + Mathf.Pi/2,
 					delta * RotationSpeed);
 				break;
 		}
