@@ -10,6 +10,8 @@ public partial class Seeker : CharacterBody2D
 
 	private readonly StateMachine<EnemyState> _stateMachine = new(new EnemySeekingState(240f));
 
+	private double _lockTime;
+	
 	public override void _Ready()
 	{
 		Velocity = Vector2.Up * Speed;
@@ -23,10 +25,13 @@ public partial class Seeker : CharacterBody2D
 				var parent = GetParent();
 				for (int i = 0; i < parent.GetChildCount(); i++)
 				{
-					// TODO: Figure out why we can't compare to Enemy union here...
-					if (parent[i] is Player player && player.GlobalPosition.DistanceTo(GlobalPosition) < enemySeekingState.Range)
+					// Use a helper to check general object in union
+					if (Target.TryFrom(parent[i], out var target) &&
+					    target is Node2D node &&
+					    node.GlobalPosition.DistanceTo(GlobalPosition) < enemySeekingState.Range)
 					{
-						_stateMachine.GoToState(new EnemyTargetState(parent[i] as Node2D));
+						_lockTime = 0f;
+						_stateMachine.GoToState(new EnemyTargetState(parent[i] as Node2D, target.Value is Player ? 5f : 10f));
 						break;
 					}
 				}
@@ -34,6 +39,12 @@ public partial class Seeker : CharacterBody2D
 			case EnemyTargetState enemyTargetState:
 				Rotation = (float)Mathf.RotateToward(Rotation, GlobalPosition.AngleToPoint(enemyTargetState.Target.GlobalPosition) + Mathf.Pi/2,
 					delta * RotationSpeed);
+				
+				_lockTime += delta;
+				if (_lockTime > enemyTargetState.LockedOnTime)
+				{
+					_stateMachine.GoToState(new EnemySeekingState(180f));
+				}
 				break;
 		}
 	}

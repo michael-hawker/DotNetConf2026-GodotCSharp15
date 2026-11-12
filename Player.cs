@@ -1,6 +1,22 @@
-using Godot;
 using System;
+using Godot;
 using GodotNet11.States;
+
+namespace GodotNet11;
+
+public union Target(Player, Follower)
+{
+	public static bool TryFrom(object? obj, out Target? target)
+	{
+		target = obj switch
+		{
+			Player p => p,
+			Follower f => f,
+			_ => null,
+		};
+		return target is not null;
+	}
+}
 
 public partial class Player : CharacterBody2D
 {
