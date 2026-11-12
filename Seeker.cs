@@ -62,6 +62,7 @@ public partial class Seeker : CharacterBody2D
 		{ 
 			GD.Print($"Enemy hit {node.Name}");
 			ProcessMode = ProcessModeEnum.Disabled;
+			node.ProcessMode = ProcessModeEnum.Disabled;
 			StrongReferenceMessenger.Default.Send<ExplosionMessage>(new(this, node));
 		}
 	}

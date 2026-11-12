@@ -26,6 +26,7 @@ public partial class Follower : CharacterBody2D
 		{ 
 			GD.Print($"Follower hit {node.Name}");
 			ProcessMode = ProcessModeEnum.Disabled;
+			node.ProcessMode = ProcessModeEnum.Disabled;
 			StrongReferenceMessenger.Default.Send<ExplosionMessage>(new(this, node));
 		}
 	}

@@ -83,6 +83,7 @@ public partial class Player : CharacterBody2D
 		{ 
 			GD.Print($"Player hit {node.Name}");
 			ProcessMode = ProcessModeEnum.Disabled;
+			node.ProcessMode = ProcessModeEnum.Disabled;
 			StrongReferenceMessenger.Default.Send<ExplosionMessage>(new(this, node));
 		}
 	}

@@ -28,13 +28,19 @@ public partial class Main : Node2D,
 
 	public async void Receive(ExplosionMessage message)
 	{
-		Node2D explosion1 = ExplosionScene.Instantiate<Node2D>();
-		explosion1.GlobalPosition = message.obj1.GlobalPosition;
-		EffectLayer.AddChild(explosion1);
-		
-		Node2D explosion2 = ExplosionScene.Instantiate<Node2D>();
-		explosion2.GlobalPosition = message.obj1.GlobalPosition;
-		EffectLayer.AddChild(explosion2);
+		if (message.obj1 is not Bullet)
+		{
+			Node2D explosion1 = ExplosionScene.Instantiate<Node2D>();
+			explosion1.GlobalPosition = message.obj1.GlobalPosition;
+			EffectLayer.AddChild(explosion1);
+		}
+
+		if (message.obj2 is not Bullet)
+		{
+			Node2D explosion2 = ExplosionScene.Instantiate<Node2D>();
+			explosion2.GlobalPosition = message.obj2.GlobalPosition;
+			EffectLayer.AddChild(explosion2);
+		}
 
 		await ToSignal(GetTree().CreateTimer(1.3f), SceneTreeTimer.SignalName.Timeout);
 
