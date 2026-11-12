@@ -32,8 +32,9 @@ public partial class Seeker : CharacterBody2D
 					    target is Node2D node &&
 					    node.GlobalPosition.DistanceTo(GlobalPosition) < enemySeekingState.Range)
 					{
+						GD.Print($"Enemy found target: {node.Name}");
 						_lockTime = 0f;
-						_stateMachine.GoToState(new EnemyTargetState(parent[i] as Node2D, target.Value is Player ? 5f : 10f));
+						_stateMachine.GoToState(new EnemyTargetState(parent[i] as Node2D, target is Player ? 5f : 10f));
 						break;
 					}
 				}

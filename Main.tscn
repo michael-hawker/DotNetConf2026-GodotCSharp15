@@ -137,13 +137,13 @@ texture = ExtResource("2_03owx")
 [sub_resource type="TileSet" id="TileSet_126ht"]
 sources/1 = SubResource("TileSetAtlasSource_r0du0")
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_wkp8b"]
-radius = 8.0
-height = 26.0
-
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_cm0pq"]
 radius = 4.0
 height = 20.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_wkp8b"]
+radius = 8.0
+height = 26.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_20pc6"]
 radius = 7.0
@@ -161,6 +161,18 @@ tile_set = SubResource("TileSet_126ht")
 
 [node name="Sprites" type="Node2D" parent="." unique_id=1695298837]
 
+[node name="FollowerBody2D" type="CharacterBody2D" parent="Sprites" unique_id=314879526 node_paths=PackedStringArray("Target")]
+position = Vector2(264, 256)
+script = ExtResource("6_03owx")
+Target = NodePath("../PlayerBody2D")
+
+[node name="Sprite2D" type="Sprite2D" parent="Sprites/FollowerBody2D" unique_id=1679974798]
+texture = ExtResource("7_wkp8b")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprites/FollowerBody2D" unique_id=646885720]
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_cm0pq")
+
 [node name="PlayerBody2D" type="CharacterBody2D" parent="Sprites" unique_id=11456381 node_paths=PackedStringArray("BulletLayer")]
 position = Vector2(264, 201)
 script = ExtResource("3_cm0pq")
@@ -173,18 +185,6 @@ texture = ExtResource("3_r0du0")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sprites/PlayerBody2D" unique_id=146668034]
 rotation = 1.5707964
 shape = SubResource("CapsuleShape2D_wkp8b")
-
-[node name="FollowerBody2D" type="CharacterBody2D" parent="Sprites" unique_id=314879526 node_paths=PackedStringArray("Target")]
-position = Vector2(264, 256)
-script = ExtResource("6_03owx")
-Target = NodePath("../PlayerBody2D")
-
-[node name="Sprite2D" type="Sprite2D" parent="Sprites/FollowerBody2D" unique_id=1679974798]
-texture = ExtResource("7_wkp8b")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprites/FollowerBody2D" unique_id=646885720]
-rotation = 1.5707964
-shape = SubResource("CapsuleShape2D_cm0pq")
 
 [node name="EnemyBody2D" type="CharacterBody2D" parent="Sprites" unique_id=1342522690]
 position = Vector2(38, 41)
