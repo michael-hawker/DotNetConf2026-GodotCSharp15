@@ -137,9 +137,17 @@ texture = ExtResource("2_03owx")
 [sub_resource type="TileSet" id="TileSet_126ht"]
 sources/1 = SubResource("TileSetAtlasSource_r0du0")
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_wkp8b"]
+radius = 8.0
+height = 26.0
+
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_cm0pq"]
 radius = 4.0
 height = 20.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_20pc6"]
+radius = 7.0
+height = 22.0
 
 [node name="Node2D" type="Node2D" unique_id=437879472 node_paths=PackedStringArray("EffectLayer", "SpriteLayer")]
 script = ExtResource("1_glv2v")
@@ -164,7 +172,7 @@ texture = ExtResource("3_r0du0")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sprites/PlayerBody2D" unique_id=146668034]
 rotation = 1.5707964
-shape = SubResource("CapsuleShape2D_cm0pq")
+shape = SubResource("CapsuleShape2D_wkp8b")
 
 [node name="FollowerBody2D" type="CharacterBody2D" parent="Sprites" unique_id=314879526 node_paths=PackedStringArray("Target")]
 position = Vector2(264, 256)
@@ -188,6 +196,6 @@ texture = ExtResource("7_trn2v")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sprites/EnemyBody2D" unique_id=523224312]
 rotation = 1.5707964
-shape = SubResource("CapsuleShape2D_cm0pq")
+shape = SubResource("CapsuleShape2D_20pc6")
 
 [node name="BulletsAndEffects" type="Node2D" parent="." unique_id=463794744]
