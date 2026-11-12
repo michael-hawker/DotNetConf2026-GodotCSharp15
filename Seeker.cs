@@ -8,7 +8,7 @@ namespace GodotNet11;
 public partial class Seeker : CharacterBody2D
 {
 	private const float Speed = 20.0f;
-	private const float RotationSpeed = Mathf.Pi / 12; // Radians
+	private const float RotationSpeed = Mathf.Pi / 6; // Radians
 
 	private readonly StateMachine<EnemyState> _stateMachine = new(new EnemySeekingState(240f));
 
