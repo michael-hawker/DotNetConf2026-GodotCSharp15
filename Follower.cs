@@ -1,4 +1,6 @@
+using CommunityToolkit.Mvvm.Messaging;
 using Godot;
+using GodotNet11.Helpers;
 
 namespace GodotNet11;
 
@@ -20,9 +22,11 @@ public partial class Follower : CharacterBody2D
 		velocity = velocity.Rotated(Rotation);
 		
 		var collide = MoveAndCollide(velocity * (float)delta);
-		if (collide?.GetCollider() is Node node)
+		if (collide?.GetCollider() is Node2D node)
 		{ 
 			GD.Print($"Follower hit {node.Name}");
+			ProcessMode = ProcessModeEnum.Disabled;
+			StrongReferenceMessenger.Default.Send<ExplosionMessage>(new(this, node));
 		}
 	}
 }

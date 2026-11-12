@@ -1,5 +1,7 @@
 using System;
+using CommunityToolkit.Mvvm.Messaging;
 using Godot;
+using GodotNet11.Helpers;
 using GodotNet11.States;
 
 namespace GodotNet11;
@@ -76,6 +78,12 @@ public partial class Player : CharacterBody2D
 		}
 
 		Velocity = velocity;
-		MoveAndSlide();
+		var collide = MoveAndCollide(Velocity * (float)delta);
+		if (collide?.GetCollider() is Node2D node)
+		{ 
+			GD.Print($"Player hit {node.Name}");
+			ProcessMode = ProcessModeEnum.Disabled;
+			StrongReferenceMessenger.Default.Send<ExplosionMessage>(new(this, node));
+		}
 	}
 }

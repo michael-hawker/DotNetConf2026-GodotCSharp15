@@ -1,4 +1,6 @@
+using CommunityToolkit.Mvvm.Messaging;
 using Godot;
+using GodotNet11.Helpers;
 using GodotNet11.States;
 
 namespace GodotNet11;
@@ -56,9 +58,11 @@ public partial class Seeker : CharacterBody2D
 		
 		var collide = MoveAndCollide(velocity * (float)delta);
 		if (collide != null &&
-		    collide.GetCollider() is Node node)
+		    collide.GetCollider() is Node2D node)
 		{ 
 			GD.Print($"Enemy hit {node.Name}");
+			ProcessMode = ProcessModeEnum.Disabled;
+			StrongReferenceMessenger.Default.Send<ExplosionMessage>(new(this, node));
 		}
 	}
 }
